@@ -26,6 +26,7 @@ public class Driver extends Person implements PersonInterface {
     public void setDelivery(Order delivery) {
         this.delivery = delivery;
         delivery.setStatus("en route");
+        delivery.setDriver(this);
     }
 
     public Order getDelivery() {
@@ -38,6 +39,10 @@ public class Driver extends Person implements PersonInterface {
 
     public void completeOrder() {
         this.delivery.setStatus("delivered");
+    }
+
+    public void cancelDelivery() {
+        this.delivery.setStatus("paid");
     }
 
     @Override
@@ -70,7 +75,7 @@ public class Driver extends Person implements PersonInterface {
             System.out.println();
             System.out.println("Welcome User : " + getName());
             System.out.println();
-            System.out.println("Take Delivery (t) | Delivery Complete (c) | Logout (l)");
+            System.out.println("Take Delivery (t) | Delivery Complete (c) | Cancel Delivery (x) |  Logout (l)");
             System.out.print("Input : ");
             input = myObj.nextLine();
             System.out.println();
@@ -86,7 +91,7 @@ public class Driver extends Person implements PersonInterface {
                             for (Order o : c.getListOrder()) {
                                 if (o.getStatus().equals("paid")) {
                                     System.out.println(String.format("Orders no %s", index + 1));
-                                    o.info();
+                                    o.infoAll();
                                     System.out.println();
                                     index++;
                                 }
@@ -141,6 +146,19 @@ public class Driver extends Person implements PersonInterface {
                         System.out.println("Thank you for your hardwork!");
                         System.out.println();
                         completeOrder();
+                        deleteDelivery();
+                    }
+
+                    break;
+                case "x":
+                    cls();
+                    if (Objects.isNull(this.delivery)) {
+                        System.out.println("You have not taken any order yet!");
+                        System.out.println();
+                    } else {
+                        System.out.println("Delivery Cancelled");
+                        System.out.println();
+                        cancelDelivery();
                         deleteDelivery();
                     }
 

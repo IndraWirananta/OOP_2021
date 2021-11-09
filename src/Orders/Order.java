@@ -38,6 +38,18 @@ public class Order implements Serializable {
         this.listSnack.add(snack);
     }
 
+    public void deleteFood(int index) {
+        this.listMakanan.remove(index);
+    }
+
+    public void deleteDrink(int index) {
+        this.listMinuman.remove(index);
+    }
+
+    public void deleteSnack(int index) {
+        this.listSnack.remove(index);
+    }
+
     public void setStatus(String status) {
         this.status = status;
     }
@@ -48,6 +60,10 @@ public class Order implements Serializable {
 
     public void setDriver(Driver driver) {
         this.driver = driver;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
 //  GETTER
@@ -77,6 +93,10 @@ public class Order implements Serializable {
         return total;
     }
 
+    public Date getDate() {
+        return this.date;
+    }
+
     public String getStatus() {
         return this.status;
     }
@@ -88,39 +108,9 @@ public class Order implements Serializable {
     public boolean isOrderEmpty() {
         return this.listMakanan.isEmpty() && this.listMinuman.isEmpty() && this.listSnack.isEmpty();
     }
+
 //  OTHER
-
     public void info() {
-        if (!this.listMakanan.isEmpty()) {
-            System.out.println("Makanan \t:\n");
-            for (Makanan x : this.listMakanan) {
-                x.info();
-                System.out.println();
-            }
-            System.out.println();
-        }
-
-        if (!this.listMinuman.isEmpty()) {
-            System.out.println("Minuman \t:\n");
-            for (Minuman x : this.listMinuman) {
-                x.info();
-                System.out.println();
-            }
-            System.out.println();
-        }
-
-        if (!this.listSnack.isEmpty()) {
-            System.out.println("Snack \t:\n");
-            for (Snack x : this.listSnack) {
-                x.info();
-                System.out.println();
-            }
-            System.out.println();
-        }
-        System.out.println();
-    }
-
-    public void infoAll() {
         if (!this.listMakanan.isEmpty()) {
             System.out.println("Makanan :\n");
             for (Makanan x : this.listMakanan) {
@@ -135,7 +125,6 @@ public class Order implements Serializable {
             for (Minuman x : this.listMinuman) {
                 x.info();
                 System.out.println();
-
             }
             System.out.println();
         }
@@ -148,7 +137,23 @@ public class Order implements Serializable {
             }
             System.out.println();
         }
+    }
 
+    public void infoForCustomer() {
+        info();
+        System.out.println();
+        System.out.println("Status \t\t: " + this.status);
+        try {
+            System.out.println("Driver \t\t: " + this.driver.getName());
+        } catch (NullPointerException e) {
+            System.out.println("Driver \t\t: Not Delivered Yet");
+        }
+        System.out.println("Price w/o taxes : " + getTotalPrice());
+    }
+
+    public void infoAll() {
+        info();
+        System.out.println();
         System.out.println("Status \t\t: " + this.status);
         System.out.println("Customer \t: " + this.customer.getName());
         try {
@@ -156,40 +161,7 @@ public class Order implements Serializable {
         } catch (NullPointerException e) {
             System.out.println("Driver \t\t: Not Delivered Yet");
         }
-
         System.out.println("Price w/o taxes : " + getTotalPrice());
-
     }
 
-    public void infoForCustomer() {
-        if (!this.listMakanan.isEmpty()) {
-            System.out.println("Makanan \t:\n");
-            for (Makanan x : this.listMakanan) {
-                x.info();
-                System.out.println();
-            }
-            System.out.println();
-        }
-
-        if (!this.listMinuman.isEmpty()) {
-            System.out.println("Minuman \t:\n");
-            for (Minuman x : this.listMinuman) {
-                x.info();
-                System.out.println();
-            }
-            System.out.println();
-        }
-
-        if (!this.listSnack.isEmpty()) {
-            System.out.println("Snack \t:\n");
-            for (Snack x : this.listSnack) {
-                x.info();
-                System.out.println();
-            }
-            System.out.println();
-        }
-        System.out.println();
-        System.out.println("Price w/o taxes : " + getTotalPrice());
-
-    }
 }
