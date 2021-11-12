@@ -57,12 +57,58 @@ public class DriverTubes {
                 db = (List) ois.readObject();
             }
         } catch (Exception ex) {
-            //            System.out.println("Exception: " + ex);
-        }
-        return db;
-    }
+            System.out.println("TEST");
 
-//CHECK IF CUSTOMER USERNAME IS TAKEN
+            if (saveFile.equals("dataCustomer.tmp")) {
+                System.out.println("TEST");
+                List< Customer> customerDb = new ArrayList< Customer>();
+                Customer c1 = new Customer("indra", "l", "081242951", "1", "Jln.Trijata gang jatayu no 6, denpasar, bali");
+                customerDb.add(c1);
+                db = customerDb;
+            } else if (saveFile.equals("dataDriver.tmp")) {
+                System.out.println("TEST");
+                List< Driver> driverDb = new ArrayList< Driver>();
+                Driver d1 = new Driver("indra", "l", "081242951", "1", "Gojek");
+                driverDb.add(d1);
+                db = driverDb;
+            } else if (saveFile.equals("dataMakanan.tmp")) {
+                System.out.println("TEST");
+                List< Makanan> makananDb = new ArrayList< Makanan>();
+                Makanan m1 = new Makanan("Mie Indomie", 10000, "Mie", 2, 5);
+                Makanan m2 = new Makanan("Mie Supermie", 9000, "Mie", 2, 5);
+                Makanan m3 = new Makanan("Mie Sedap", 5000, "Mie", 1, 5);
+                makananDb.add(m1);
+                makananDb.add(m2);
+                makananDb.add(m3);
+                db = makananDb;
+            } else if (saveFile.equals("dataMinuman.tmp")) {
+                System.out.println("TEST");
+                List< Minuman> minumanDb = new ArrayList< Minuman>();
+                Minuman mm1 = new Minuman("Boba", 10000, "Tea", 300, true);
+                Minuman mm2 = new Minuman("Teh hangat", 5000, "Tea", 450, false);
+                Minuman mm3 = new Minuman("Jus jeruk", 7000, "Mie", 450, true);
+                minumanDb.add(mm1);
+                minumanDb.add(mm2);
+                minumanDb.add(mm3);
+                db = minumanDb;
+            } else if (saveFile.equals("dataSnack.tmp")) {
+                System.out.println("TEST");
+                List< Snack> snackDb = new ArrayList< Snack>();
+                Snack s1 = new Snack("Krupuk bawang", 3000, "Krupuk", 100);
+                Snack s2 = new Snack("Krupuk udang", 3000, "Krupuk", 150);
+                Snack s3 = new Snack("Kacang rebus", 2000, "Kacang", 150);
+                snackDb.add(s1);
+                snackDb.add(s2);
+                snackDb.add(s3);
+                db = snackDb;
+            }
+        } finally {
+            return db;
+        }
+
+    }
+    //CHECK IF CUSTOMER USERNAME IS TAKEN
+
     public static boolean checkAlreadyTakenCustomer(String check, List< Customer> customer) {
         for (Customer x : customer) {
             if (x.getName().equals(check)) {
@@ -161,27 +207,235 @@ public class DriverTubes {
                     break;
                 case "af":
 // ------------------------------------------------------------------ ADD FOOD -----------------------------------------------
-//                    String nama, int harga, String kategori, int porsi, int durasiMasak
                     String foodName;
-                    int foodPrice;
+                    int foodPrice = 0;
                     String foodCategory;
-                    int foodPortion;
-                    int foodDuration;
-
+                    int foodPortion = 0;
+                    int foodDuration = 0;
+                    boolean error = false;
                     System.out.println("-------------------Insert Food Info-----------------\n");
-                    System.out.print("Insert food name \t: ");
+                    System.out.print("Insert food Name \t: ");
                     foodName = myObj.nextLine();
-                    System.out.print("Insert food name \t: ");
-                    foodPrice = myObj.nextLine();
-                    System.out.print("Insert food name \t: ");
+
+                    do {
+                        try {
+                            System.out.print("Insert food Price \t: ");
+                            foodPrice = Integer.parseInt(myObj.nextLine());
+                            error = false;
+                        } catch (Exception e) {
+                            System.out.println("Invalid input!");
+                            error = true;
+                        }
+                    } while (error);
+
+                    System.out.print("Insert food Category \t: ");
                     foodCategory = myObj.nextLine();
-                    System.out.print("Insert food name \t: ");
-                    foodPortion = myObj.nextLine();
-                    System.out.print("Insert food name \t: ");
-                    foodDuration = myObj.nextLine();
+
+                    do {
+                        try {
+                            System.out.print("Insert food Portion \t: ");
+                            foodPortion = Integer.parseInt(myObj.nextLine());
+                            error = false;
+                        } catch (Exception e) {
+                            System.out.println("Invalid input!");
+                            error = true;
+                        }
+                    } while (error);
+                    do {
+                        try {
+                            System.out.print("Insert food Duration \t: ");
+                            foodDuration = Integer.parseInt(myObj.nextLine());
+                            error = false;
+                        } catch (Exception e) {
+                            System.out.println("Invalid input!");
+                            error = true;
+                        }
+                    } while (error);
                     Makanan newMakanan = new Makanan(foodName, foodPrice, foodCategory, foodPortion, foodDuration);
+                    makananDb.add(newMakanan);
+                    System.out.print("Item Added! Press any key to continue!");
+                    input = myObj.nextLine();
+                    break;
+                case "ad":
+// ------------------------------------------------------------------ ADD DRINK -----------------------------------------------
+                    String drinkName;
+                    int drinkPrice = 0;
+                    String drinkCategory;
+                    int drinkVolume = 0;
+                    boolean drinkIsDingin = false;
+                    error = false;
+                    System.out.println("-------------------Insert Drink Info-----------------\n");
+                    System.out.print("Insert drink Name \t: ");
+                    drinkName = myObj.nextLine();
+
+                    do {
+                        try {
+                            System.out.print("Insert drink Price \t: ");
+                            drinkPrice = Integer.parseInt(myObj.nextLine());
+                            error = false;
+                        } catch (Exception e) {
+                            System.out.println("Invalid input!");
+                            error = true;
+                        }
+                    } while (error);
+
+                    System.out.print("Insert drink Category \t: ");
+                    drinkCategory = myObj.nextLine();
+
+                    do {
+                        try {
+                            System.out.print("Insert drink volume\t: ");
+                            drinkVolume = Integer.parseInt(myObj.nextLine());
+                            error = false;
+                        } catch (Exception e) {
+                            System.out.println("Invalid input!");
+                            error = true;
+                        }
+                    } while (error);
+                    do {
+                        System.out.print("Is this a cold drink? (y/n) \t: ");
+                        String temp = myObj.nextLine();
+                        if (temp.equals("y")) {
+                            drinkIsDingin = true;
+                            error = false;
+                        } else if (temp.equals("n")) {
+                            drinkIsDingin = false;
+                            error = false;
+                        } else {
+                            System.out.println("Invalid input!");
+                            error = true;
+                        }
+                    } while (error);
+                    Minuman newMinuman = new Minuman(drinkName, drinkPrice, drinkCategory, drinkVolume, drinkIsDingin);
+                    minumanDb.add(newMinuman);
+                    System.out.print("Item Added! Press any key to continue!");
+                    input = myObj.nextLine();
+                    break;
+                case "as":
+// ------------------------------------------------------------------ ADD SNACK -----------------------------------------------
+                    String snackName;
+                    int snackPrice = 0;
+                    String snackCategory;
+                    int snackBerat = 0;
+                    error = false;
+                    System.out.println("-------------------Insert Drink Info-----------------\n");
+                    System.out.print("Insert Snack Name \t: ");
+                    snackName = myObj.nextLine();
+
+                    do {
+                        try {
+                            System.out.print("Insert Snack Price \t: ");
+                            snackPrice = Integer.parseInt(myObj.nextLine());
+                            error = false;
+                        } catch (Exception e) {
+                            System.out.println("Invalid input!");
+                            error = true;
+                        }
+                    } while (error);
+
+                    System.out.print("Insert Snack Category \t: ");
+                    snackCategory = myObj.nextLine();
+
+                    do {
+                        try {
+                            System.out.print("Insert Snack Weight\t: ");
+                            snackBerat = Integer.parseInt(myObj.nextLine());
+                            error = false;
+                        } catch (Exception e) {
+                            System.out.println("Invalid input!");
+                            error = true;
+                        }
+                    } while (error);
+
+                    Snack newSnack = new Snack(snackName, snackPrice, snackCategory, snackBerat);
+                    snackDb.add(newSnack);
+
+                    System.out.print("Item Added! Press any key to continue!");
+                    input = myObj.nextLine();
+
                     break;
 
+                case "df":
+                    int deleteIndex = -1;
+                    boolean cont = true;
+                    System.out.println("-------------------Food Info-----------------\n");
+                    for (int i = 0; i < makananDb.size(); i++) {
+                        System.out.println((i + 1) + ". " + makananDb.get(i).getNama());
+                    }
+                    do {
+                        try {
+                            System.out.print("Delete snack number?([cancel] to cancel ): ");
+                            input = myObj.nextLine();
+                            if (input.equals("cancel")) {
+                                System.out.println("Cancelled! Press any key to continue!");
+                                input = myObj.nextLine();
+                                cont = false;
+                                break;
+                            }
+                            deleteIndex = Integer.parseInt(input) - 1;
+                            makananDb.remove(deleteIndex);
+                            System.out.println("Item deleted!");
+
+                        } catch (Exception e) {
+                            System.out.println("Invalid input!");
+
+                        }
+                    } while (cont);
+
+                    break;
+                case "dd":
+                    deleteIndex = -1;
+                    cont = true;
+                    System.out.println("-------------------Drink Info-----------------\n");
+                    for (int i = 0; i < minumanDb.size(); i++) {
+                        System.out.println((i + 1) + ". " + minumanDb.get(i).getNama());
+                    }
+                    do {
+                        try {
+                            System.out.print("Delete snack number?([cancel] to cancel ): ");
+                            input = myObj.nextLine();
+                            if (input.equals("cancel")) {
+                                System.out.println("Cancelled! Press any key to continue!");
+                                input = myObj.nextLine();
+                                cont = false;
+                                break;
+                            }
+                            deleteIndex = Integer.parseInt(input) - 1;
+                            minumanDb.remove(deleteIndex);
+                            System.out.println("Item deleted!");
+                        } catch (Exception e) {
+                            System.out.println("Invalid input!");
+
+                        }
+                    } while (cont);
+
+                    break;
+                case "ds":
+                    deleteIndex = -1;
+                    cont = true;
+                    System.out.println("-------------------Snack Info-----------------\n");
+                    for (int i = 0; i < snackDb.size(); i++) {
+                        System.out.println((i + 1) + ". " + snackDb.get(i).getNama());
+                    }
+                    do {
+                        try {
+                            System.out.print("Delete snack number?([cancel] to cancel ): ");
+                            input = myObj.nextLine();
+                            if (input.equals("cancel")) {
+                                System.out.println("Cancelled! Press any key to continue!");
+                                input = myObj.nextLine();
+                                cont = false;
+                                break;
+                            }
+                            deleteIndex = Integer.parseInt(input) - 1;
+                            snackDb.remove(deleteIndex);
+                            System.out.println("Item deleted!");
+                        } catch (Exception e) {
+                            System.out.println("Invalid input!");
+                        }
+                    } while (cont);
+
+                    break;
             }
 
         } while (!input.equals("exit"));
@@ -201,29 +455,9 @@ public class DriverTubes {
 
         customerDb = load("dataCustomer.tmp");
         driverDb = load("dataDriver.tmp");
-
-//      INIT ISI ARRAYLIST-----------------------------------------------------------------------------------------
-//      String nama, int harga, String kategori, int porsi, int durasiMasak
-        Makanan m1 = new Makanan("Mie Indomie", 10000, "Mie", 2, 5);
-        Makanan m2 = new Makanan("Mie Supermie", 9000, "Mie", 2, 5);
-        Makanan m3 = new Makanan("Mie Sedap", 5000, "Mie", 1, 5);
-        makananDb.add(m1);
-        makananDb.add(m2);
-        makananDb.add(m3);
-//      String nama, int harga, String kategori, int volume, boolean isDingin
-        Minuman mm1 = new Minuman("Boba", 10000, "Tea", 300, true);
-        Minuman mm2 = new Minuman("Teh hangat", 5000, "Tea", 450, false);
-        Minuman mm3 = new Minuman("Jus jeruk", 7000, "Mie", 450, true);
-        minumanDb.add(mm1);
-        minumanDb.add(mm2);
-        minumanDb.add(mm3);
-//      String nama, int harga, String kategori,int berat
-        Snack s1 = new Snack("Krupuk bawang", 3000, "Krupuk", 100);
-        Snack s2 = new Snack("Krupuk udang", 3000, "Krupuk", 150);
-        Snack s3 = new Snack("Kacang rebus", 2000, "Kacang", 150);
-        snackDb.add(s1);
-        snackDb.add(s2);
-        snackDb.add(s3);
+        makananDb = load("dataMakanan.tmp");
+        minumanDb = load("dataMinuman.tmp");
+        snackDb = load("dataSnack.tmp");
 
         Scanner myObj = new Scanner(System.in);
         System.out.println("------------------------------------------[ MENU ]-----------------------------------------------");
