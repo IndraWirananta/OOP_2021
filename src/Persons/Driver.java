@@ -71,7 +71,6 @@ public class Driver extends Person implements PersonInterface {
     public void menu(List<Customer> listCustomer) {
         Scanner myObj = new Scanner(System.in);
         String input;
-        cls();
         do {
             cls();
             System.out.println("------------------------DRIVER MENU------------------------");

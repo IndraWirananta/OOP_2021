@@ -110,7 +110,6 @@ public class Customer extends Person implements PersonInterface {
     public void menu(List< Makanan> lm, List< Minuman> ld, List< Snack> ls) {
         Scanner myObj = new Scanner(System.in);
         String input;
-        cls();
         do {
             cls();
             System.out.println("------------------------CUSTOMER MENU------------------------\n");
@@ -277,7 +276,7 @@ public class Customer extends Person implements PersonInterface {
                             }
                             break;
 
-                        } catch (NumberFormatException e) {
+                        } catch (Exception e) {
                             if (input.equals("cancel")) {
                                 System.out.println("Canceling...");
                             } else {
