@@ -95,7 +95,9 @@ public class Customer extends Person implements PersonInterface {
     public void cls() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            System.out.println("Welcome User : " + getName());
+            System.out.println("---------------------------------------------------");
+            System.out.println("Active Customer : " + getName());
+            System.out.println("---------------------------------------------------\n");
         } catch (Exception E) {
             System.out.println(E);
         }
@@ -179,9 +181,12 @@ public class Customer extends Person implements PersonInterface {
 
                                 switch (input) {
                                     case "v":
+                                        cls();
                                         System.out.println("---------Your Order----------\n");
                                         this.listOrder.get(index).info();
                                         System.out.println();
+                                        System.out.print("Press any key to continue!");
+                                        input = myObj.nextLine();
                                         break;
                                     case "del":
                                         cls();
@@ -198,8 +203,10 @@ public class Customer extends Person implements PersonInterface {
                                                 number = Integer.parseInt(myObj.nextLine()) - 1;
                                                 try {
                                                     this.listOrder.get(index).deleteFood(number);
-                                                } catch (IndexOutOfBoundsException exception) {
+                                                } catch (Exception exception) {
                                                     System.out.println("ITEM NOT FOUND");
+                                                    System.out.print("Press any key to continue!");
+                                                    input = myObj.nextLine();
                                                 }
                                                 break;
                                             case "dd":
@@ -207,8 +214,10 @@ public class Customer extends Person implements PersonInterface {
                                                 number = Integer.parseInt(myObj.nextLine()) - 1;
                                                 try {
                                                     this.listOrder.get(index).deleteDrink(number);
-                                                } catch (IndexOutOfBoundsException exception) {
+                                                } catch (Exception exception) {
                                                     System.out.println("ITEM NOT FOUND");
+                                                    System.out.print("Press any key to continue!");
+                                                    input = myObj.nextLine();
                                                 }
                                                 break;
                                             case "ds":
@@ -216,12 +225,16 @@ public class Customer extends Person implements PersonInterface {
                                                 number = Integer.parseInt(myObj.nextLine()) - 1;
                                                 try {
                                                     this.listOrder.get(index).deleteSnack(number);
-                                                } catch (IndexOutOfBoundsException exception) {
+                                                } catch (Exception exception) {
                                                     System.out.println("ITEM NOT FOUND");
+                                                    System.out.print("Press any key to continue!");
+                                                    input = myObj.nextLine();
                                                 }
                                                 break;
                                             default:
                                                 System.out.println("Option not found!");
+                                                System.out.print("Press any key to continue!");
+                                                input = myObj.nextLine();
                                                 break;
                                         }
                                         break;
@@ -233,8 +246,10 @@ public class Customer extends Person implements PersonInterface {
 
                                         try {
                                             this.listOrder.get(index).addFood(lm.get(number));
-                                        } catch (IndexOutOfBoundsException exception) {
+                                        } catch (Exception exception) {
                                             System.out.println("ITEM NOT FOUND");
+                                            System.out.print("Press any key to continue!");
+                                            input = myObj.nextLine();
                                         }
                                         break;
                                     case "d":
@@ -243,8 +258,10 @@ public class Customer extends Person implements PersonInterface {
 
                                         try {
                                             this.listOrder.get(index).addDrink(ld.get(number));
-                                        } catch (IndexOutOfBoundsException exception) {
+                                        } catch (Exception exception) {
                                             System.out.println("ITEM NOT FOUND");
+                                            System.out.print("Press any key to continue!");
+                                            input = myObj.nextLine();
                                         }
                                         break;
                                     case "s":
@@ -254,13 +271,18 @@ public class Customer extends Person implements PersonInterface {
 
                                         try {
                                             this.listOrder.get(index).addSnack(ls.get(number));
-                                        } catch (IndexOutOfBoundsException exception) {
+                                        } catch (Exception exception) {
                                             System.out.println("ITEM NOT FOUND");
+                                            System.out.print("Press any key to continue!");
+                                            input = myObj.nextLine();
                                         }
+                                        break;
+                                    case "done":
                                         break;
                                     default:
                                         System.out.println("ITEM NOT FOUND");
-                                        System.out.println();
+                                        System.out.print("Press any key to continue!");
+                                        input = myObj.nextLine();
                                         break;
                                 }
                                 cls();
@@ -269,9 +291,13 @@ public class Customer extends Person implements PersonInterface {
 //                                System.out.println();
                             } while (!input.equals("done"));
                             if (!this.listOrder.get(index).isOrderEmpty()) {
-                                addOrder(this.listOrder.get(index));
+                                System.out.println("Order Edited Successfully!!");
+                                System.out.print("Press any key to continue!");
+                                input = myObj.nextLine();
                             } else {
                                 System.out.println("Canceling order!");
+                                System.out.print("Press any key to continue!");
+                                input = myObj.nextLine();
                                 removeOrder(index);
                             }
                             break;
@@ -279,8 +305,12 @@ public class Customer extends Person implements PersonInterface {
                         } catch (Exception e) {
                             if (input.equals("cancel")) {
                                 System.out.println("Canceling...");
+                                System.out.print("Press any key to continue!");
+                                input = myObj.nextLine();
                             } else {
                                 System.out.println("Unknown input!");
+                                System.out.print("Press any key to continue!");
+                                input = myObj.nextLine();
                             }
                         }
                     } while (!input.equals("cancel"));
@@ -336,6 +366,8 @@ public class Customer extends Person implements PersonInterface {
                                 System.out.println("---------Your Order----------\n");
                                 newOrder.info();
                                 System.out.println();
+                                System.out.print("Press any key to continue!");
+                                input = myObj.nextLine();
                                 break;
                             case "del":
                                 if (!newOrder.isOrderEmpty()) {
@@ -353,8 +385,10 @@ public class Customer extends Person implements PersonInterface {
                                             number = Integer.parseInt(myObj.nextLine()) - 1;
                                             try {
                                                 newOrder.deleteFood(number);
-                                            } catch (IndexOutOfBoundsException exception) {
-                                                System.out.println("ITEM NOT FOUND\n");
+                                            } catch (Exception exception) {
+                                                System.out.println("ITEM NOT FOUND");
+                                                System.out.print("Press any key to continue!");
+                                                input = myObj.nextLine();
                                             }
                                             break;
                                         case "dd":
@@ -362,8 +396,11 @@ public class Customer extends Person implements PersonInterface {
                                             number = Integer.parseInt(myObj.nextLine()) - 1;
                                             try {
                                                 newOrder.deleteDrink(number);
-                                            } catch (IndexOutOfBoundsException exception) {
-                                                System.out.println("ITEM NOT FOUND\n");
+                                            } catch (Exception exception) {
+
+                                                System.out.println("ITEM NOT FOUND");
+                                                System.out.print("Press any key to continue!");
+                                                input = myObj.nextLine();
                                             }
                                             break;
                                         case "ds":
@@ -371,57 +408,72 @@ public class Customer extends Person implements PersonInterface {
                                             number = Integer.parseInt(myObj.nextLine()) - 1;
                                             try {
                                                 newOrder.deleteSnack(number);
-                                            } catch (IndexOutOfBoundsException exception) {
-                                                System.out.println("ITEM NOT FOUND\n");
+                                            } catch (Exception exception) {
+                                                System.out.println("ITEM NOT FOUND");
+                                                System.out.print("Press any key to continue!");
+                                                input = myObj.nextLine();
                                             }
                                             break;
                                         default:
-                                            System.out.println("Option not found!\n");
+                                            System.out.println("Option not found!");
+
+                                            System.out.print("Press any key to continue!");
+                                            input = myObj.nextLine();
                                             break;
                                     }
                                 } else {
-                                    System.out.println("You have no item in your order!\n");
+                                    System.out.println("You have no item in your order!");
+                                    System.out.print("Press any key to continue!");
+                                    input = myObj.nextLine();
 
                                 }
                                 break;
                             case "m":
-                                System.out.print("Insert Food Number : ");
-
-                                number = Integer.parseInt(myObj.nextLine()) - 1;
-                                System.out.println();
 
                                 try {
+                                    System.out.print("Insert Food Number : ");
+
+                                    number = Integer.parseInt(myObj.nextLine()) - 1;
+                                    System.out.println();
                                     newOrder.addFood(lm.get(number));
-                                } catch (IndexOutOfBoundsException exception) {
+                                } catch (Exception exception) {
                                     System.out.println("ITEM NOT FOUND");
+                                    System.out.print("Press any key to continue!");
+                                    input = myObj.nextLine();
                                 }
                                 break;
                             case "d":
-                                System.out.print("Insert Drink Number : ");
-                                number = Integer.parseInt(myObj.nextLine()) - 1;
 
                                 try {
+                                    System.out.print("Insert Drink Number : ");
+                                    number = Integer.parseInt(myObj.nextLine()) - 1;
                                     newOrder.addDrink(ld.get(number));
-                                } catch (IndexOutOfBoundsException exception) {
+                                } catch (Exception exception) {
                                     System.out.println("ITEM NOT FOUND");
+                                    System.out.print("Press any key to continue!");
+                                    input = myObj.nextLine();;
                                 }
                                 break;
                             case "s":
-                                System.out.print("Insert Snack Number : ");
-
-                                number = Integer.parseInt(myObj.nextLine()) - 1;
 
                                 try {
+                                    System.out.print("Insert Snack Number : ");
+
+                                    number = Integer.parseInt(myObj.nextLine()) - 1;
                                     newOrder.addSnack(ls.get(number));
-                                } catch (IndexOutOfBoundsException exception) {
+                                } catch (Exception exception) {
                                     System.out.println("ITEM NOT FOUND");
+                                    System.out.print("Press any key to continue!");
+                                    input = myObj.nextLine();
                                 }
                                 break;
                             case "done":
                                 break;
                             default:
                                 System.out.println("INVALID OPTION!");
-                                System.out.println();
+
+                                System.out.print("Press any key to continue!");
+                                input = myObj.nextLine();
                                 break;
                         }
 //                        if (!newOrder.isOrderEmpty()) {

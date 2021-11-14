@@ -49,7 +49,10 @@ public class Driver extends Person implements PersonInterface {
     public void cls() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            System.out.println("Welcome Driver : " + getName());
+            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            System.out.println("---------------------------------------------------");
+            System.out.println("Active Driver : " + getName());
+            System.out.println("---------------------------------------------------\n");
         } catch (Exception E) {
             System.out.println(E);
         }

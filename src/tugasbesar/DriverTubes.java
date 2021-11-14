@@ -63,12 +63,15 @@ public class DriverTubes {
                 List< Customer> customerDb = new ArrayList< Customer>();
                 Customer c1 = new Customer("indra", "l", "081242951", "1", "Jln.Trijata gang jatayu no 6, denpasar, bali");
                 customerDb.add(c1);
+                save(customerDb, "dataCustomer.tmp");
                 db = customerDb;
+
             } else if (saveFile.equals("dataDriver.tmp")) {
 
                 List< Driver> driverDb = new ArrayList< Driver>();
                 Driver d1 = new Driver("indra", "l", "081242951", "1", "Gojek");
                 driverDb.add(d1);
+                save(driverDb, "dataDriver.tmp");
                 db = driverDb;
             } else if (saveFile.equals("dataMakanan.tmp")) {
 
@@ -79,6 +82,7 @@ public class DriverTubes {
                 makananDb.add(m1);
                 makananDb.add(m2);
                 makananDb.add(m3);
+                save(makananDb, "dataMakanan.tmp");
                 db = makananDb;
             } else if (saveFile.equals("dataMinuman.tmp")) {
 
@@ -89,6 +93,7 @@ public class DriverTubes {
                 minumanDb.add(mm1);
                 minumanDb.add(mm2);
                 minumanDb.add(mm3);
+                save(minumanDb, "dataMinuman.tmp");
                 db = minumanDb;
             } else if (saveFile.equals("dataSnack.tmp")) {
 
@@ -99,6 +104,7 @@ public class DriverTubes {
                 snackDb.add(s1);
                 snackDb.add(s2);
                 snackDb.add(s3);
+                save(snackDb, "dataSnack.tmp");
                 db = snackDb;
             }
         } finally {
@@ -142,10 +148,10 @@ public class DriverTubes {
         do {
             cls();
             System.out.println("---------------------------------------[ MENU ADMIN ]--------------------------------------------");
-            System.out.println(" [gc] getInfoCustomer     | [gd] getInfoDriver    | [gm] getInfoMakanan    | ");
-            System.out.println(" [af] add food            | [ad] add drink        | [as] add snack         |");
-            System.out.println(" [df] delete food         | [dd] delete drink     | [ds] delete snack      |");
-            System.out.println(" [dc] delete Customer     | [dr] delete Driver    | [exit] Exit            |");
+            System.out.println("| [gc] getInfoCustomer            | [gd] getInfoDriver           | [gm] getInfoMakanan           | ");
+            System.out.println("| [af] add food                   | [ad] add drink               | [as] add snack                |");
+            System.out.println("| [df] delete food                | [dd] delete drink            | [ds] delete snack             |");
+            System.out.println("| [dc] delete Customer            | [dr] delete Driver           | [exit] Exit                   |");
             System.out.println("-------------------------------------------------------------------------------------------------");
             System.out.print("Input : ");
             input = myObj.nextLine();
@@ -386,7 +392,7 @@ public class DriverTubes {
                     String snackCategory;
                     int snackBerat = 0;
                     error = false;
-                    System.out.println("-------------------Insert Drink Info-----------------\n");
+                    System.out.println("-------------------Insert Snack Info-----------------\n");
                     System.out.print("Insert Snack Name \t: ");
                     snackName = myObj.nextLine();
 
@@ -448,6 +454,7 @@ public class DriverTubes {
 
                     } catch (Exception e) {
                         System.out.println("Invalid input!");
+                        input = myObj.nextLine();
 
                     }
 
@@ -475,7 +482,7 @@ public class DriverTubes {
                         input = myObj.nextLine();
                     } catch (Exception e) {
                         System.out.println("Invalid input!");
-
+                        input = myObj.nextLine();
                     }
 
                     break;
@@ -502,6 +509,7 @@ public class DriverTubes {
                         input = myObj.nextLine();
                     } catch (Exception e) {
                         System.out.println("Invalid input!");
+                        input = myObj.nextLine();
                     }
 
                     break;
@@ -530,6 +538,26 @@ public class DriverTubes {
         snackDb = load("dataSnack.tmp");
 
         Scanner myObj = new Scanner(System.in);
+        System.out.println();
+        System.out.println();
+        System.out.println("  |##(#((##(#((##(#((##(((((#(((/((((//((/(///(//**////**///****/*****/*****/***,*/*****/*****|");
+        System.out.println("  |##(##((#(##((#(##((#(##((#((#((#/(#(/(/(((/(//(/*/*/(/*/*///*/**/*****//,***//,***//,***//,|");
+        System.out.println("  |####/((      #(#//((#       */(((#**((((                //..**//,.                *.***/*.*|");
+        System.out.println("  |#(##((#      ((#((#       (#((#(((((#/((                ///*/*///*                  *******|");
+        System.out.println("  |((((##(      (((#       (/((##(/(((((/((      (((*////(*/////,////      /.****       .****/|");
+        System.out.println("  |##(%###      #(       *(##(##(##(##(##(#      ((((/((/((//////*//*      //**/**       *****|");
+        System.out.println("  |#####(#              ##((#(##((#(##/(#(#      #/(#/((//(/((//(///*      */**/**      /***,*|");
+        System.out.println("  |#%##((#            #(#//##(#*/##(#**(#(#                /(,,/(/(..                   /*/. *|");
+        System.out.println("  |#######             ####((((##((((##((((                (/(((/(/(/                /*/***/*/|");
+        System.out.println("  |(####%(      (       ##%#(#####(#####(##      ###/(###(/(#(#(/((((      (*///(/*///(/,*/*//|");
+        System.out.println("  |(##%##(      ##        #(#(#%#(#(#%#(#(#      ###(((###(((#(((((#(      (///(/(//*(////*(*/|");
+        System.out.println("  |%##(###      #((#        (((#(#(/##(##/#      (((#/((((#/((((#/(((      /((////((//////****|");
+        System.out.println("  |#%##((#      %##((#        #((#%##((#%#(      (/(#((//(#((//(#(///      (#(//*/((/**/(/**,*|");
+        System.out.println("  |###%%%#      ##%%%###       %%(#(#%#(#(#      ##(#(###(#(###(#((##      ((/(#(((/(#((///((/|");
+        System.out.println("  |###%#%#      ##%#%###%        ###%###(#%      ###(#####(#####(###(      #(((#((/(((/(/(/(/(|");
+        System.out.println("  |%#(%(#%#(%((%#(%((%#(%((%((%((#((%((#((#((#((#((#((#/(#(##(/###(#/(##(#/(#((#/(#((#/(#(/(*/|");
+        System.out.println("  |%##(##%(#(##%(((##%(((###(((###(((###(((###(((###(#(((#/#(((#/#(((#(((((((((((((((((((((/((|\n\n");
+
         System.out.println("------------------------------------------[ MENU ]-----------------------------------------------");
         System.out.println("[D ] New Driver \t| [C ] New Customer\t| [lc] Login Customer\t| [ld] Login Driver");
         System.out.println("[A ] Login Admin \t| [exit] Exit");
@@ -695,6 +723,25 @@ public class DriverTubes {
 
             }
             cls();
+            System.out.println();
+            System.out.println();
+            System.out.println("  |##(#((##(#((##(#((##(((((#(((/((((//((/(///(//**////**///****/*****/*****/***,*/*****/*****|");
+            System.out.println("  |##(##((#(##((#(##((#(##((#((#((#/(#(/(/(((/(//(/*/*/(/*/*///*/**/*****//,***//,***//,***//,|");
+            System.out.println("  |####/((      #(#//((#       */(((#**((((                //..**//,.                *.***/*.*|");
+            System.out.println("  |#(##((#      ((#((#       (#((#(((((#/((                ///*/*///*                  *******|");
+            System.out.println("  |((((##(      (((#       (/((##(/(((((/((      (((*////(*/////,////      /.****       .****/|");
+            System.out.println("  |##(%###      #(       *(##(##(##(##(##(#      ((((/((/((//////*//*      //**/**       *****|");
+            System.out.println("  |#####(#              ##((#(##((#(##/(#(#      #/(#/((//(/((//(///*      */**/**      /***,*|");
+            System.out.println("  |#%##((#            #(#//##(#*/##(#**(#(#                /(,,/(/(..                   /*/. *|");
+            System.out.println("  |#######             ####((((##((((##((((                (/(((/(/(/                /*/***/*/|");
+            System.out.println("  |(####%(      (       ##%#(#####(#####(##      ###/(###(/(#(#(/((((      (*///(/*///(/,*/*//|");
+            System.out.println("  |(##%##(      ##        #(#(#%#(#(#%#(#(#      ###(((###(((#(((((#(      (///(/(//*(////*(*/|");
+            System.out.println("  |%##(###      #((#        (((#(#(/##(##/#      (((#/((((#/((((#/(((      /((////((//////****|");
+            System.out.println("  |#%##((#      %##((#        #((#%##((#%#(      (/(#((//(#((//(#(///      (#(//*/((/**/(/**,*|");
+            System.out.println("  |###%%%#      ##%%%###       %%(#(#%#(#(#      ##(#(###(#(###(#((##      ((/(#(((/(#((///((/|");
+            System.out.println("  |###%#%#      ##%#%###%        ###%###(#%      ###(#####(#####(###(      #(((#((/(((/(/(/(/(|");
+            System.out.println("  |%#(%(#%#(%((%#(%((%#(%((%((%((#((%((#((#((#((#((#((#/(#(##(/###(#/(##(#/(#((#/(#((#/(#(/(*/|");
+            System.out.println("  |%##(##%(#(##%(((##%(((###(((###(((###(((###(((###(#(((#/#(((#/#(((#(((((((((((((((((((((/((|\n\n");
             System.out.println("------------------------------------------[ MENU ]-----------------------------------------------");
             System.out.println("[D ] New Driver \t| [C ] New Customer\t| [lc] Login Customer\t| [ld] Login Driver");
             System.out.println("[A ] Login Admin \t| [exit] Exit");
