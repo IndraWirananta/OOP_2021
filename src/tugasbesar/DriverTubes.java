@@ -57,22 +57,21 @@ public class DriverTubes {
                 db = (List) ois.readObject();
             }
         } catch (Exception ex) {
-            System.out.println("TEST");
 
             if (saveFile.equals("dataCustomer.tmp")) {
-                System.out.println("TEST");
+
                 List< Customer> customerDb = new ArrayList< Customer>();
                 Customer c1 = new Customer("indra", "l", "081242951", "1", "Jln.Trijata gang jatayu no 6, denpasar, bali");
                 customerDb.add(c1);
                 db = customerDb;
             } else if (saveFile.equals("dataDriver.tmp")) {
-                System.out.println("TEST");
+
                 List< Driver> driverDb = new ArrayList< Driver>();
                 Driver d1 = new Driver("indra", "l", "081242951", "1", "Gojek");
                 driverDb.add(d1);
                 db = driverDb;
             } else if (saveFile.equals("dataMakanan.tmp")) {
-                System.out.println("TEST");
+
                 List< Makanan> makananDb = new ArrayList< Makanan>();
                 Makanan m1 = new Makanan("Mie Indomie", 10000, "Mie", 2, 5);
                 Makanan m2 = new Makanan("Mie Supermie", 9000, "Mie", 2, 5);
@@ -82,7 +81,7 @@ public class DriverTubes {
                 makananDb.add(m3);
                 db = makananDb;
             } else if (saveFile.equals("dataMinuman.tmp")) {
-                System.out.println("TEST");
+
                 List< Minuman> minumanDb = new ArrayList< Minuman>();
                 Minuman mm1 = new Minuman("Boba", 10000, "Tea", 300, true);
                 Minuman mm2 = new Minuman("Teh hangat", 5000, "Tea", 450, false);
@@ -92,7 +91,7 @@ public class DriverTubes {
                 minumanDb.add(mm3);
                 db = minumanDb;
             } else if (saveFile.equals("dataSnack.tmp")) {
-                System.out.println("TEST");
+
                 List< Snack> snackDb = new ArrayList< Snack>();
                 Snack s1 = new Snack("Krupuk bawang", 3000, "Krupuk", 100);
                 Snack s2 = new Snack("Krupuk udang", 3000, "Krupuk", 150);
@@ -143,17 +142,86 @@ public class DriverTubes {
         do {
             cls();
             System.out.println("---------------------------------------[ MENU ADMIN ]--------------------------------------------");
-            System.out.println("[gc] getInfoCustomer\t| [gd] getInfoDriver\t| [gm] getInfoMakanan\t| [exit] Exit");
-            System.out.println("[af] add food \t\t| [ad] add drink\t| [as] add snack \t");
-            System.out.println("[df] delete food \t| [dd] delete drink\t| [ds] delete snack \t");
+            System.out.println(" [gc] getInfoCustomer     | [gd] getInfoDriver    | [gm] getInfoMakanan    | ");
+            System.out.println(" [af] add food            | [ad] add drink        | [as] add snack         |");
+            System.out.println(" [df] delete food         | [dd] delete drink     | [ds] delete snack      |");
+            System.out.println(" [dc] delete Customer     | [dr] delete Driver    | [exit] Exit            |");
             System.out.println("-------------------------------------------------------------------------------------------------");
             System.out.print("Input : ");
             input = myObj.nextLine();
 
             switch (input) {
+                case "dr":
+
+                    int indexC = 1;
+                    System.out.println("-------------------Delete Driver-----------------");
+                    System.out.println();
+                    for (Driver x : driverDb) {
+                        System.out.println("Driver no " + indexC);
+                        x.info();
+                        indexC++;
+                        System.out.println();
+                    }
+
+                    try {
+                        System.out.print("Delete Driver Number? ([cancel] to cancel) : ");
+                        input = myObj.nextLine();
+                        if (input.equals("cancel")) {
+                            System.out.print("Cancelled! Press any key to continue!");
+                            input = myObj.nextLine();
+                            cls();
+                            break;
+                        }
+                        int deleteIndexD = Integer.parseInt(input) - 1;
+
+                        try {
+                            driverDb.get(deleteIndexD).cancelDelivery();
+                        } catch (Exception e) {
+                        }
+                        driverDb.remove(deleteIndexD);
+
+                        System.out.print("Deleted! Press any key to continue!");
+                        input = myObj.nextLine();
+                    } catch (Exception e) {
+                        System.out.println("Invalid input!");
+
+                    }
+
+                    break;
+                case "dc":
+                    indexC = 1;
+                    System.out.println("-------------------Delete Customer-----------------");
+                    System.out.println();
+                    for (Customer x : customerDb) {
+                        System.out.println("Customer no " + indexC);
+                        x.info();
+                        indexC++;
+                        System.out.println();
+                    }
+
+                    try {
+                        System.out.print("Delete Customer Number? ([cancel] to cancel) : ");
+                        input = myObj.nextLine();
+                        if (input.equals("cancel")) {
+                            System.out.print("Cancelled! Press any key to continue!");
+                            input = myObj.nextLine();
+                            cls();
+                            break;
+                        }
+                        int deleteIndexC = Integer.parseInt(input) - 1;
+                        customerDb.remove(deleteIndexC);
+
+                        System.out.print("Deleted! Press any key to continue!");
+                        input = myObj.nextLine();
+                    } catch (Exception e) {
+                        System.out.println("Invalid input!");
+
+                    }
+
+                    break;
                 case "gc":
 // ------------------------------------------------------------------GET CUSTOMER INFO-----------------------------------------------
-                    int indexC = 1;
+                    indexC = 1;
                     System.out.println("-------------------Customer Info-----------------");
                     System.out.println();
                     for (Customer x : customerDb) {
@@ -357,83 +425,84 @@ public class DriverTubes {
 
                 case "df":
                     int deleteIndex = -1;
-                    boolean cont = true;
+
                     System.out.println("-------------------Food Info-----------------\n");
                     for (int i = 0; i < makananDb.size(); i++) {
                         System.out.println((i + 1) + ". " + makananDb.get(i).getNama());
                     }
-                    do {
-                        try {
-                            System.out.print("Delete snack number?([cancel] to cancel ): ");
+                    System.out.println();
+
+                    try {
+                        System.out.print("Delete snack number?([cancel] to cancel ): ");
+                        input = myObj.nextLine();
+                        if (input.equals("cancel")) {
+                            System.out.println("Cancelled! Press any key to continue!");
                             input = myObj.nextLine();
-                            if (input.equals("cancel")) {
-                                System.out.println("Cancelled! Press any key to continue!");
-                                input = myObj.nextLine();
-                                cont = false;
-                                break;
-                            }
-                            deleteIndex = Integer.parseInt(input) - 1;
-                            makananDb.remove(deleteIndex);
-                            System.out.println("Item deleted!");
 
-                        } catch (Exception e) {
-                            System.out.println("Invalid input!");
-
+                            break;
                         }
-                    } while (cont);
+                        deleteIndex = Integer.parseInt(input) - 1;
+                        makananDb.remove(deleteIndex);
+                        System.out.println("Item deleted! Press any key to continue!");
+                        input = myObj.nextLine();
+
+                    } catch (Exception e) {
+                        System.out.println("Invalid input!");
+
+                    }
 
                     break;
                 case "dd":
                     deleteIndex = -1;
-                    cont = true;
+
                     System.out.println("-------------------Drink Info-----------------\n");
                     for (int i = 0; i < minumanDb.size(); i++) {
                         System.out.println((i + 1) + ". " + minumanDb.get(i).getNama());
                     }
-                    do {
-                        try {
-                            System.out.print("Delete snack number?([cancel] to cancel ): ");
+                    System.out.println();
+                    try {
+                        System.out.print("Delete drink number?([cancel] to cancel ): ");
+                        input = myObj.nextLine();
+                        if (input.equals("cancel")) {
+                            System.out.println("Cancelled! Press any key to continue!");
                             input = myObj.nextLine();
-                            if (input.equals("cancel")) {
-                                System.out.println("Cancelled! Press any key to continue!");
-                                input = myObj.nextLine();
-                                cont = false;
-                                break;
-                            }
-                            deleteIndex = Integer.parseInt(input) - 1;
-                            minumanDb.remove(deleteIndex);
-                            System.out.println("Item deleted!");
-                        } catch (Exception e) {
-                            System.out.println("Invalid input!");
 
+                            break;
                         }
-                    } while (cont);
+                        deleteIndex = Integer.parseInt(input) - 1;
+                        minumanDb.remove(deleteIndex);
+                        System.out.println("Item deleted! Press any key to continue!");
+                        input = myObj.nextLine();
+                    } catch (Exception e) {
+                        System.out.println("Invalid input!");
+
+                    }
 
                     break;
                 case "ds":
                     deleteIndex = -1;
-                    cont = true;
+
                     System.out.println("-------------------Snack Info-----------------\n");
                     for (int i = 0; i < snackDb.size(); i++) {
                         System.out.println((i + 1) + ". " + snackDb.get(i).getNama());
                     }
-                    do {
-                        try {
-                            System.out.print("Delete snack number?([cancel] to cancel ): ");
+                    System.out.println();
+                    try {
+                        System.out.print("Delete snack number?([cancel] to cancel ): ");
+                        input = myObj.nextLine();
+                        if (input.equals("cancel")) {
+                            System.out.println("Cancelled! Press any key to continue!");
                             input = myObj.nextLine();
-                            if (input.equals("cancel")) {
-                                System.out.println("Cancelled! Press any key to continue!");
-                                input = myObj.nextLine();
-                                cont = false;
-                                break;
-                            }
-                            deleteIndex = Integer.parseInt(input) - 1;
-                            snackDb.remove(deleteIndex);
-                            System.out.println("Item deleted!");
-                        } catch (Exception e) {
-                            System.out.println("Invalid input!");
+
+                            break;
                         }
-                    } while (cont);
+                        deleteIndex = Integer.parseInt(input) - 1;
+                        snackDb.remove(deleteIndex);
+                        System.out.println("Item deleted! Press any key to continue!");
+                        input = myObj.nextLine();
+                    } catch (Exception e) {
+                        System.out.println("Invalid input!");
+                    }
 
                     break;
             }
@@ -445,6 +514,7 @@ public class DriverTubes {
     public static void main(String[] args) throws FileNotFoundException, IOException, ClassNotFoundException {
 
 //      INIT ARRAYLIST --------------------------------------------------------------------------------------------
+        cls();
         List< Customer> customerDb = new ArrayList< Customer>();
         List< Driver> driverDb = new ArrayList< Driver>();
         List< Makanan> makananDb = new ArrayList< Makanan>();
@@ -576,6 +646,11 @@ public class DriverTubes {
                         aLogin = loginAdmin(nameAdmin, passAdmin);
                         if (aLogin) {
                             menuAdmin(makananDb, minumanDb, snackDb, customerDb, driverDb);
+                            save(customerDb, "dataCustomer.tmp");
+                            save(driverDb, "dataDriver.tmp");
+                            save(makananDb, "dataMakanan.tmp");
+                            save(minumanDb, "dataMinuman.tmp");
+                            save(snackDb, "dataSnack.tmp");
                         } else {
                             System.out.print("Wrong password or username! exit? [y/n] : ");
                             passCustomer = myObj.nextLine();

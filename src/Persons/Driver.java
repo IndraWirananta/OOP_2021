@@ -33,7 +33,7 @@ public class Driver extends Person implements PersonInterface {
         return this.delivery;
     }
 
-    private void deleteDelivery() {
+    public void deleteDelivery() {
         this.delivery = null;
     }
 
@@ -49,6 +49,7 @@ public class Driver extends Person implements PersonInterface {
     public void cls() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            System.out.println("Welcome Driver : " + getName());
         } catch (Exception E) {
             System.out.println(E);
         }
@@ -70,10 +71,10 @@ public class Driver extends Person implements PersonInterface {
     public void menu(List<Customer> listCustomer) {
         Scanner myObj = new Scanner(System.in);
         String input;
+        cls();
         do {
+            cls();
             System.out.println("------------------------DRIVER MENU------------------------");
-            System.out.println();
-            System.out.println("Welcome User : " + getName());
             System.out.println();
             System.out.println("Take Delivery (t) | Delivery Complete (c) | Cancel Delivery (x) |  Logout (l)");
             System.out.print("Input : ");
@@ -98,12 +99,25 @@ public class Driver extends Person implements PersonInterface {
                             }
                         }
                         if (index != 0) {
-                            System.out.print("Pick order no : ");
-                            input = myObj.nextLine();
+
+                            boolean error = false;
+                            int indexPick = -1;
+                            do {
+                                try {
+                                    System.out.print("Pick order no : ");
+                                    input = myObj.nextLine();
+                                    indexPick = Integer.parseInt(input) - 1;
+                                    error = false;
+
+                                } catch (Exception e) {
+                                    error = true;
+                                }
+                            } while (error);
+
                             for (Customer c : listCustomer) {
                                 for (Order o : c.getListOrder()) {
                                     if (o.getStatus().equals("paid")) {
-                                        if (indexSearch == (Integer.parseInt(input) - 1)) {
+                                        if (indexSearch == (indexPick)) {
                                             setDelivery(o);
                                             orderTaken = true;
                                             break;
@@ -125,26 +139,31 @@ public class Driver extends Person implements PersonInterface {
                             }
 
                         } else {
-                            System.out.println("There is no order which needs delivery right now!");
-                            System.out.println();
+                            System.out.print("There is no order! Press any key to continue!");
+
+                            input = myObj.nextLine();
                         }
 
                     } else {
                         cls();
-                        System.out.println();
-                        System.out.println("Complete your delivery first!");
-                        System.out.println();
+
+                        System.out.print("Complete your delivery first! Press any key to continue!");
+                        input = myObj.nextLine();
                     }
 
                     break;
                 case "c":
                     cls();
                     if (Objects.isNull(this.delivery)) {
-                        System.out.println("You have not taken any order yet!");
-                        System.out.println();
+                        System.out.print("You have not taken any order yet! Press any key to continue!");
+                        input = myObj.nextLine();
+
                     } else {
                         System.out.println("Thank you for your hardwork!");
-                        System.out.println();
+                        System.out.println("You Receive : Rp." + calculate());
+                        System.out.println("Press any key to continue!");
+
+                        input = myObj.nextLine();
                         completeOrder();
                         deleteDelivery();
                     }
@@ -153,11 +172,12 @@ public class Driver extends Person implements PersonInterface {
                 case "x":
                     cls();
                     if (Objects.isNull(this.delivery)) {
-                        System.out.println("You have not taken any order yet!");
-                        System.out.println();
+                        System.out.println("You have not taken any order yet! Press any key to continue!");
+                        input = myObj.nextLine();
+
                     } else {
-                        System.out.println("Delivery Cancelled");
-                        System.out.println();
+                        System.out.println("Delivery Cancelled! Press any key to continue!");
+                        input = myObj.nextLine();
                         cancelDelivery();
                         deleteDelivery();
                     }

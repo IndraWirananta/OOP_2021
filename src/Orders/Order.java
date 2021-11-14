@@ -105,6 +105,14 @@ public class Order implements Serializable {
         return this.payment;
     }
 
+    public Driver getDriver() {
+        return this.driver;
+    }
+
+    public Customer getCustomer() {
+        return this.customer;
+    }
+
     public boolean isOrderEmpty() {
         return this.listMakanan.isEmpty() && this.listMinuman.isEmpty() && this.listSnack.isEmpty();
     }

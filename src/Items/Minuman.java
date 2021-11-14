@@ -20,7 +20,7 @@ public class Minuman extends Item {
         this.isDingin = isDingin;
     }
 
-    public int getPorsi() {
+    public int getVolume() {
         return this.volume;
     }
 

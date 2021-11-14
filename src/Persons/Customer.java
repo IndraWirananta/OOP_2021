@@ -31,8 +31,12 @@ public class Customer extends Person implements PersonInterface {
         return this.address;
     }
 
-    public void addListOrder(Order order) {
+    public void addOrder(Order order) {
         this.listOrder.add(order);
+    }
+
+    public void removeOrder(int index) {
+        this.listOrder.remove(index);
     }
 
     public List<Order> getListOrder() {
@@ -47,7 +51,7 @@ public class Customer extends Person implements PersonInterface {
         System.out.println("Address : " + getAddress());
     }
 
-    private void completeOrder(int index) {
+    public void completeOrder(int index) {
         int i = 1;
         boolean isDone = false;
         for (Order x : listOrder) {
@@ -91,9 +95,11 @@ public class Customer extends Person implements PersonInterface {
     public void cls() {
         try {
             new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            System.out.println("Welcome User : " + getName());
         } catch (Exception E) {
             System.out.println(E);
         }
+
     }
 
     @Override
@@ -104,18 +110,20 @@ public class Customer extends Person implements PersonInterface {
     public void menu(List< Makanan> lm, List< Minuman> ld, List< Snack> ls) {
         Scanner myObj = new Scanner(System.in);
         String input;
+        cls();
         do {
+            cls();
             System.out.println("------------------------CUSTOMER MENU------------------------\n");
-            System.out.println("Welcome User : " + getName());
             System.out.println();
-            System.out.println("View Order (v) | New Order(n) | Pay Order (p) | Edit Order (e) | Delete Order (x) | Logout (l)");
+            System.out.println("View Order   (v) | New Order      (n) | Pay Order   (p) |");
+            System.out.println("Edit Order   (e) | Delete Order   (x) | Logout      (l) |");
             System.out.print("Input : ");
             input = myObj.nextLine();
             switch (input) {
                 case "e":
                     cls();
                     do {
-
+                        cls();
                         System.out.println("-------------- Edit Order --------------");
                         System.out.println();
                         int i = 0;
@@ -128,7 +136,8 @@ public class Customer extends Person implements PersonInterface {
                         }
                         if (i == 0) {
                             cls();
-                            System.out.println("No active order found!\n");
+                            System.out.println("No active order found! Press any key to continue!");
+                            input = myObj.nextLine();
                             break;
                         }
                         System.out.println();
@@ -164,18 +173,23 @@ public class Customer extends Person implements PersonInterface {
                                     System.out.println();
                                 }
                                 System.out.println();
-                                System.out.print("FOOD [m] | DRINK [d] | SNACK [s] | delete [del] | done [done] : ");
+                                System.out.print("FOOD [m] | DRINK [d] | SNACK [s] | DELETE [del] | VIEW ORDER [v] | done [done] : ");
                                 input = myObj.nextLine();
                                 System.out.println();
                                 int number;
 
                                 switch (input) {
+                                    case "v":
+                                        System.out.println("---------Your Order----------\n");
+                                        this.listOrder.get(index).info();
+                                        System.out.println();
+                                        break;
                                     case "del":
                                         cls();
                                         System.out.println("---------Your Order----------\n");
                                         this.listOrder.get(index).info();
                                         System.out.println();
-                                        System.out.print("DELETE : FOOD [dm]| DRINK [dd] | SNACK [ds]  :");
+                                        System.out.print("DELETE : FOOD [dm]| DRINK [dd] | SNACK [ds]  : ");
                                         input = myObj.nextLine();
                                         System.out.println();
 
@@ -250,14 +264,16 @@ public class Customer extends Person implements PersonInterface {
                                         System.out.println();
                                         break;
                                 }
-                                System.out.println("---------Your Order----------\n");
-                                this.listOrder.get(index).info();
-                                System.out.println();
+                                cls();
+//                                System.out.println("---------Your Order----------\n");
+//                                this.listOrder.get(index).info();
+//                                System.out.println();
                             } while (!input.equals("done"));
                             if (!this.listOrder.get(index).isOrderEmpty()) {
-                                addListOrder(this.listOrder.get(index));
+                                addOrder(this.listOrder.get(index));
                             } else {
                                 System.out.println("Canceling order!");
+                                removeOrder(index);
                             }
                             break;
 
@@ -282,46 +298,53 @@ public class Customer extends Person implements PersonInterface {
                     if (i == 0) {
                         cls();
                         System.out.println("You have no order!\n");
-                        break;
                     }
                     System.out.println("Press any key to continue!");
                     input = myObj.nextLine();
                     break;
                 case "n":
-                    for (int x = 0; x < lm.size(); x++) {
-                        System.out.println("--------Makanan no." + (x + 1) + "--------------");
-                        lm.get(x).info();
-                        System.out.println();
-                    }
-                    System.out.println();
-                    for (int x = 0; x < ld.size(); x++) {
-                        System.out.println("--------Minuman no." + (x + 1) + "--------------");
-                        ld.get(x).info();
-                        System.out.println();
 
-                    }
-                    System.out.println();
-                    for (int x = 0; x < ls.size(); x++) {
-                        System.out.println("--------Snack no." + (x + 1) + "--------------");
-                        ls.get(x).info();
-                        System.out.println();
-                    }
-                    System.out.println();
                     Order newOrder = new Order(this);
                     do {
-                        System.out.print("FOOD [m] | DRINK [d] | SNACK [s] | DELETE [del] | done [done] :");
+                        cls();
+                        for (int x = 0; x < lm.size(); x++) {
+                            System.out.println("--------Makanan no." + (x + 1) + "--------------");
+                            lm.get(x).info();
+                            System.out.println();
+                        }
+                        System.out.println();
+                        for (int x = 0; x < ld.size(); x++) {
+                            System.out.println("--------Minuman no." + (x + 1) + "--------------");
+                            ld.get(x).info();
+                            System.out.println();
+
+                        }
+                        System.out.println();
+                        for (int x = 0; x < ls.size(); x++) {
+                            System.out.println("--------Snack no." + (x + 1) + "--------------");
+                            ls.get(x).info();
+                            System.out.println();
+                        }
+                        System.out.println();
+
+                        System.out.print("FOOD [m] | DRINK [d] | SNACK [s] | DELETE [del] | VIEW ORDER [v] | done [done] : ");
                         input = myObj.nextLine();
                         System.out.println();
                         int number;
 
                         switch (input) {
+                            case "v":
+                                System.out.println("---------Your Order----------\n");
+                                newOrder.info();
+                                System.out.println();
+                                break;
                             case "del":
-                                if (newOrder.isOrderEmpty()) {
-                                    cls();
+                                if (!newOrder.isOrderEmpty()) {
+
                                     System.out.println("---------Your Order----------\n");
                                     newOrder.info();
                                     System.out.println();
-                                    System.out.print("DELETE : FOOD [dm]| DRINK [dd] | SNACK [ds]  :");
+                                    System.out.print("DELETE : FOOD [dm]| DRINK [dd] | SNACK [ds]  : ");
                                     input = myObj.nextLine();
                                     System.out.println();
 
@@ -332,7 +355,7 @@ public class Customer extends Person implements PersonInterface {
                                             try {
                                                 newOrder.deleteFood(number);
                                             } catch (IndexOutOfBoundsException exception) {
-                                                System.out.println("ITEM NOT FOUND");
+                                                System.out.println("ITEM NOT FOUND\n");
                                             }
                                             break;
                                         case "dd":
@@ -341,7 +364,7 @@ public class Customer extends Person implements PersonInterface {
                                             try {
                                                 newOrder.deleteDrink(number);
                                             } catch (IndexOutOfBoundsException exception) {
-                                                System.out.println("ITEM NOT FOUND");
+                                                System.out.println("ITEM NOT FOUND\n");
                                             }
                                             break;
                                         case "ds":
@@ -350,11 +373,11 @@ public class Customer extends Person implements PersonInterface {
                                             try {
                                                 newOrder.deleteSnack(number);
                                             } catch (IndexOutOfBoundsException exception) {
-                                                System.out.println("ITEM NOT FOUND");
+                                                System.out.println("ITEM NOT FOUND\n");
                                             }
                                             break;
                                         default:
-                                            System.out.println("Option not found!");
+                                            System.out.println("Option not found!\n");
                                             break;
                                     }
                                 } else {
@@ -402,14 +425,21 @@ public class Customer extends Person implements PersonInterface {
                                 System.out.println();
                                 break;
                         }
-                        System.out.println("---------Your Order----------\n");
-                        newOrder.info();
-                        System.out.println();
+//                        if (!newOrder.isOrderEmpty()) {
+//                            System.out.println("---------Your Order----------\n");
+//                            newOrder.info();
+//                        }
+//                        System.out.println();
                     } while (!input.equals("done"));
                     if (!newOrder.isOrderEmpty()) {
-                        addListOrder(newOrder);
+                        addOrder(newOrder);
+                        System.out.println("Order added! Press any key to continue!");
+                        input = myObj.nextLine();
+                        cls();
                     } else {
-                        System.out.println("Canceling order!");
+                        System.out.println("Order cancelled! Press any key to continue!");
+                        input = myObj.nextLine();
+                        cls();
                     }
                     break;
                 case "p":
@@ -429,7 +459,8 @@ public class Customer extends Person implements PersonInterface {
                         }
                         if (i == 0) {
                             cls();
-                            System.out.println("All order has been paid!\n");
+                            System.out.println("All order has been paid! Press any key to continue!");
+                            input = myObj.nextLine();
                             break;
                         }
                         System.out.println();
@@ -447,6 +478,65 @@ public class Customer extends Person implements PersonInterface {
                             }
                         }
                     } while (!input.equals("cancel"));
+                    break;
+                case "x":
+                    cls();
+                    System.out.println("----------------------- Delete Order -----------------------\n");
+                    boolean error = false;
+                    int deleteIndex = 0;
+                    for (i = 0; i < getListOrder().size(); i++) {
+                        System.out.println("----------- Order No." + (i + 1) + "-----------");
+                        getListOrder().get(i).infoAll();
+                        System.out.println();
+                    }
+                    if (i == 0) {
+                        cls();
+                        System.out.println("You have no order!\n");
+                        System.out.println("Press any key to continue!");
+                        input = myObj.nextLine();
+                        break;
+                    } else {
+                        do {
+                            try {
+                                System.out.print("Delete order number? ([cancel] to cancel) : ");
+                                input = myObj.nextLine();
+                                if (input.equals("cancel")) {
+                                    System.out.println("Cancelled! Press any key to continue! \n");
+                                    input = myObj.nextLine();
+                                    cls();
+                                } else {
+                                    deleteIndex = Integer.parseInt(input) - 1;
+                                    switch (this.listOrder.get(deleteIndex).getStatus()) {
+                                        case "active":
+                                            System.out.println("Order Cancelled!");
+                                            removeOrder(deleteIndex);
+                                            break;
+                                        case "paid":
+                                            System.out.println("Order Cancelled! You have been refunded!");
+                                            removeOrder(deleteIndex);
+                                            break;
+                                        case "en route":
+                                            System.out.println("Cannot cancel en route order!");
+                                            break;
+                                        case "delivered":
+                                            System.out.println("Deleting order from history!");
+                                            removeOrder(deleteIndex);
+                                            break;
+                                    }
+                                    System.out.print("Press any key to continue!");
+                                    input = myObj.nextLine();
+                                    cls();
+                                }
+
+                                error = false;
+                            } catch (Exception e) {
+                                System.out.println("Invalid input!");
+                                error = true;
+                            }
+                        } while (error);
+
+                    }
+
                     break;
             }
         } while (!input.equals("l"));
